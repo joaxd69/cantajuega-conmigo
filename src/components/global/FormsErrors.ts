@@ -19,11 +19,15 @@ export const loginError = (input: any) => {
     error.global = "Todos los campos son obligatorios";
   }
 
-  if (!Regex.email.test(input.email)) {
+  if (!input.email.length) {
+    error.email='Ingrese email.';
+  }else if (!Regex.email.test(input.email)) {
     error.email = "El email no es valido";
   }
 
-  if (!Regex.password.test(input.password)) {
+  if(!input.password){
+    error.password='Ingrese una contraseña.'
+  }else if (!Regex.password.test(input.password)) {
     error.password = "La contraseña no es valida";
   }
 
