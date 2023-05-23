@@ -3,21 +3,25 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import styles from '../../styles/Navbar.module.css'
 // USER
 import Login from "./Login";
 import Resgister from "./Register";
 import { AUTH_MODAL_TYPE } from "@/utils";
 
 //ICONS
-import { HiOutlineMenu } from "react-icons/hi";
+import { HiOutlineMenu, HiOutlineUserAdd, HiUser, HiUserAdd } from "react-icons/hi";
 import {
   AiOutlineMobile,
   AiOutlineClose,
   AiOutlineUserAdd,
+  AiOutlineUsergroupAdd,
+  AiFillFacebook,
+  AiOutlineFacebook,
 } from "react-icons/ai";
-import { BsFacebook, BsYoutube } from "react-icons/bs";
-import { TiMail } from "react-icons/ti";
+import { BsFacebook, BsTelephone, BsYoutube } from "react-icons/bs";
+import { TiMail, TiSocialFacebook, TiSocialFacebookCircular, TiUser, TiUserAdd, TiUserAddOutline } from "react-icons/ti";
+import { IoLogoFacebook, IoMdMail } from "react-icons/io";
 
 const Navbar = () => {
   const items = [
@@ -25,8 +29,9 @@ const Navbar = () => {
     { name: "Metodología", href: "#metodologia" },
     { name: "Cancionero", href: "/cancionero" },
     { name: "Membresías", href: "/membresias" },
-    { name: "Cursos", href: "/cursos" },
+    { name: "Cursos", href: "/Cursos" },
     { name: "Contacto", href: "/contacto" },
+    {name:"Mis cursos",href:"/Miscursos"}
   ];
 
   interface OpenInterface {
@@ -50,33 +55,44 @@ const Navbar = () => {
   return (
     <nav className="shadow-md w-full h-auto  top-0 left-0">
       {/* top nav */}
-      <div className="hidden md:flex md:top-0 md:w-auto md:px-4 md:py-2 md:justify-between md:items-center md:bg-gray-100  md:border-b-2 md:border-dashed  md:border-amber-500">
-        <div className=""></div>
+      <div className="hidden bg-white 2xl:w-full font-sans font-normal md:pb-5 md:flex md:top-0 md:w-auto md:px-4
+       md:py-2 md:justify-end md:items-center  md:border-b-2 md:border-dashed 
+        md:border-orangeicons  2xl:text-2xl   xl:text-xl lg:text-lg  sm:text-sm ">
+        <section className="flex w-full justify-between lg:w-11/12 ">
+          <div className="flex   justify-evenly w-7/12  ">
+            <a href="tel:+502 5430-1174" className="flex items-center">
+            <BsTelephone className="fill-current h-4 w-4 flex-shrink-0 mr-2 text-orangeicons" />
+            <span className="">+502 5430-1174 </span>
+            </a >
+            <a href="mailto:info@cantajuegaconmigo.com"className="flex items-center">
+            <IoMdMail className="fill-current h-4 w-4 flex-shrink-0 mr-2  text-orangeicons" />
+            <span className="">info@cantajuegaconmigo</span>
+            </a >
+          </div>
 
-        <div className="flex justify-start md:text-xs">
-          <span className="mr-6">ALGUNA PREGUNTA? </span>
-
-          <AiOutlineMobile className="fill-current h-4 w-4 flex-shrink-0 mr-2 text-yellow-300" />
-          <span className="mr-6">+502 5430-1174 </span>
-
-          <TiMail className="fill-current h-4 w-4 flex-shrink-0 mr-2  text-yellow-300" />
-          <span className="mr-6">info@cantajuegaconmigo</span>
-        </div>
-
-        <div className="flex justify-end space-x-4 font-semibold text-base cursor-pointer">
-          <BsFacebook className="text-[#3b5998] rounded-full" size={25} />
-          <BsYoutube className="text-[#c4302b] rounded-full" size={25} />
-          <div className="border border-gray-400 h-6 w-0"></div>
-          <AiOutlineUserAdd className="text-blue rounded-full" size={25} />
-          <span
-            className="hover:text-[#FFC172] cursor-pointer"
-            onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}
-          >
-            Iniciar Sesión
-          </span>
-        </div>
+          <div className="flex  space-x-4  items-center">
+            <a href="https://www.youtube.com/@cantajuegaconmigo1543">
+            <BsYoutube className="text-[#FF0302] text-2xl"  />
+            </a>
+            <a href="https://www.facebook.com/cantajuegaconmigo">
+            <TiSocialFacebook className="text-[#1877F2] text-2xl" />
+            </a>
+            
+            
+            <span
+              className="hover:text-[#FFC172] cursor-pointer flex"
+              onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}
+            >
+             <HiUserAdd className=" text-orangeicons transform scale-x-[-1] text-2xl" />
+              Iniciar Sesión
+            </span>
+          </div>
+        </section>
       </div>
       {/* top nav */}
+
+
+
       <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
         <div
           className="font-bold text-2xl cursor-pointer flex items-center 
@@ -108,12 +124,12 @@ const Navbar = () => {
         </div>
 
         <ul
-          className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[20] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-            openMenu ? "top-20 " : "top-[-490px]"
+          className={` ${styles.List} md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[50] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
+            openMenu ? "top-20 " : "top-[-600px]"
           }`}
         >
           {items.map((item) => (
-            <li key={item.name} className="md:ml-8 text-2xl md:my-0 my-7">
+            <li key={item.name} className="md:ml-8 text-2xl md:my-0 my-7 w-fit z-50">
               <Link
                 href={item.href}
                 className="text-gray-800 hover:text-yellow-500 duration-500"

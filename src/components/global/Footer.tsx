@@ -1,61 +1,47 @@
 import React from "react";
 import Image from "next/image";
-import { BsFacebook, BsInstagram, BsYoutube } from "react-icons/bs";
+import {BsInstagram, BsTelephone } from "react-icons/bs";
+import logo from '../../../public/img/Logo.png'
+import { IoMdMail } from "react-icons/io";
+import { AiFillFacebook,AiFillYoutube } from "react-icons/ai";
+import style from '../../styles/Footer.module.css'
 
 const Footer = () => {
   return (
-    <footer className='"sm:px-16 px-6 py-8 relative"'>
-      <div className="footer-gradient" />
-      
-      <div className="2xl:max-w-[1280px] w-full mx-auto flex flex-col gap-8">
-        <div className="flex items-center justify-between flex-wrap gap-5">
-          <h4 className="font-bold text-4xl sm:text-4xl md:text-xl lg:text-5xl text-gray-700 ">
-            Unete Ahora!
-          </h4>
-          <button
-            type="button"
-            className="flex items-center h-fit py-4 px-6 bg-[#25618B] rounded-[32px] gap-[12px]"
-          >
-            <Image
-              src="https://www.cantajuegaconmigo.com/wp-content/uploads/2021/11/NUEVO-LOGO.png"
-              alt="Logo"
-              className="w-[24px] h-[24px] object-contain"
-              height={20}
-              width={20}
-            />
-            <span className="font-normal text-[16px] text-white">
-              Back to Home
-            </span>
-          </button>
-        </div>
+    <footer className= {`${style.Footer} bg-white flex justify-between items-center pt-10 pb-1 w-full flex-wrap `}>
+        
+       <section className=" w-fit">
+        <Image src={logo} alt="logo" className=" w-56 2xl:w-96 xl:w-64 lg:w-72 md:w-64 sm:w-60 "/>
+       </section>
+       
 
-        <div className="flex flex-col">
-          {/* <div className="mb-[50px] h-[2px] bg-red opacity-10" /> */}
+       <section className='flex  justify-evenly text-sm  w-5/12 flex-wrap 2xl:text-2xl  2xl:w-6/12 xl:w-5/12 xl:text-xl lg:text-lg  sm:text-sm  '>
+        <article className="flex">
+          <a className="flex items-center" href="tel:+502 5430-1174">
+            < BsTelephone className=" text-orangeicons"/>
+            <span>+502 5430-1174</span>
+          </a>
+        </article>   
+        <article className="flex">
+          <a className="flex items-center" href="mailto:info@cantajuegaconmigo.com">
+            < IoMdMail className=" text-orangeicons"/>
+            <span>info@cantajuegaconmigo.com</span>
+          </a>
+        </article>
+       </section> 
+       
+       <section className="flex  justify-evenly font-sans w-3/12 "> 
+          <a href="https://www.facebook.com/cantajuegaconmigo" className=" text-4xl lg:text-5xl sm:text-4xl ">
+            <AiFillFacebook className=" text-grayicons rounded-3xl"/>
+          </a>
+          <a href="https://www.youtube.com/@cantajuegaconmigo1543" className=" text-4xl lg:text-5xl sm:text-4xl ">
+            <AiFillYoutube className=" text-grayicons"/>
+          </a>
+          <a href="https://www.instagram.com/cantajuega_conmigo/" className=" text-4xl lg:text-5xl sm:text-4xl ">
+            <BsInstagram  className=" text-grayicons"/>
+          </a>
+       </section>
 
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <h4 className="font-extrabold text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700">
-              <a href="mailto:info@cantajuegaconmigo.com">
-              info@cantajuegaconmigo.com
-              </a>
-            </h4>
-            <p className="font-normal text-[14px] text-gray-700 opacity-50">
-              Copyright © 2023 - 2023 no se que poner aca. All rights reserved.
-            </p>
-
-            <div className="flex gap-4">
-              <a href="https://www.facebook.com/cantajuegaconmigo">
-                <BsFacebook className="w-[24px] h-[24px] object-contain cursor-pointer" />
-              </a>
-              <a href="https://www.youtube.com/@cantajuegaconmigo1543">
-              <BsYoutube className="w-[24px] h-[24px] object-contain cursor-pointer" />
-              </a>
-              <a href="https://www.instagram.com/cantajuega_conmigo/">
-              <BsInstagram className="w-[24px] h-[24px] object-contain cursor-pointer" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </footer>
   );
 };

@@ -1,6 +1,11 @@
 const Regex = {
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,30}$/,
-  password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,30}$/,
+  password:{
+    general: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>`~;'/+-=]).{8,30}$/,
+    passwordletterMay:/(?=.*[A-Z])/, 
+    passwordletterMin:/(?=.*[a-z])/,
+    passwordletterChar:/(?=.*[!@#$%^&*(),.?":{}|<>`~;'/+-=])/,
+  }, 
   firstName:/^[a-zA-Z]+$/,
   lastName:/^[a-zA-Z]+$/
 };
@@ -18,19 +23,26 @@ export const loginError = (input: any) => {
   if (input.email === "" || input.password === "") {
     error.global = "Todos los campos son obligatorios";
   }
-
   if (!input.email.length) {
     error.email='Ingrese email.';
   }else if (!Regex.email.test(input.email)) {
     error.email = "El email no es valido";
   }
-
   if(!input.password){
     error.password='Ingrese una contraseña.'
-  }else if (!Regex.password.test(input.password)) {
-    error.password = "La contraseña no es valida";
+  }else if(input.password.length<8){
+      error.password='Debe contener al menos 8 caracteres.'
+  }else if(input.password.length > 30){
+    error.password='Contraseña muy larga.'
+  }else if(!Regex.password.passwordletterMay.test(input.password)){
+    error.password='Debe contener al menos una mayúscula.'
+  }else if(!Regex.password.passwordletterMin.test(input.password)){
+       error.password='Debe contener al menos una minúscula.'
+  }else if(!Regex.password.passwordletterChar.test(input.password)){
+       error.password='Debe contener al menos un caracter especial.'
+  }else if(!Regex.password.general.test(input.password)){
+       error.password='Contraseña inválida.'
   }
-
   return error;
 };
 export const registerError = (input: any) => {
@@ -44,10 +56,21 @@ export const registerError = (input: any) => {
   }else if (!Regex.email.test(input.email)) {
     error.email = "El email no es valido";
   }
+  
   if(!input.password){
     error.password='Ingrese una contraseña.'
-  }else if (!Regex.password.test(input.password)) {
-    error.password = "La contraseña no es segura";
+  }else if(input.password.length<8){
+      error.password='Debe contener al menos 8 caracteres.'
+  }else if(input.password.length > 30){
+    error.password='Contraseña muy larga.'
+  }else if(!Regex.password.passwordletterMay.test(input.password)){
+    error.password='Debe contener al menos una mayúscula.'
+  }else if(!Regex.password.passwordletterMin.test(input.password)){
+       error.password='Debe contener al menos una minúscula.'
+  }else if(!Regex.password.passwordletterChar.test(input.password)){
+       error.password='Debe contener al menos un caracter especial.'
+  }else if(!Regex.password.general.test(input.password)){
+       error.password='Contraseña inválida.'
   }
 
   if (!input.firstName) {

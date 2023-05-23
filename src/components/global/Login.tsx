@@ -73,9 +73,9 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
 
   return (
     <div className={`${styles.Container} fixed h-full w-full z-50 flex top-0 justify-center items-center overflow-auto`} >
-    {/*Contenedor formulario*/}  <div className= { `${styles.FormContainer}  bg-slate-300 border border-solid border-black rounded-xl overflow-hidden  flex flex-col items-center `}>
+     <div className= { `${styles.FormContainer}  bg-slate-300 border border-solid border-black rounded-xl overflow-hidden  flex flex-col items-center `}>
          
-    {/*Hijo 1*/}   <div className='flex justify-end w-full'>
+    <div className='flex justify-end w-full'>
           <button className='text-black'  onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}>
             <IoMdClose
               className="text-3xl cursor-pointer hover:text-blue hover:scale-110
@@ -84,10 +84,10 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           </button>
         </div>
 
-  {/*Hijo 2*/}           <section className='w-full p-2'>
+          <section className='w-full p-2'>
             <h1 className=' text-2xl  text-black ml-3'>Inicia sesion: </h1>
           </section>
-  {/*Hijo 3*/}         <form className={`${styles.Form}  flex flex-col  w-5/6 justify-evenly`} onSubmit={handleSubmit}>
+        <form className={`${styles.Form}  flex flex-col  w-5/6 justify-evenly`} onSubmit={handleSubmit}>
              <label className='text-sm text-black' htmlFor="">CORREO ELECTRÓNICO</label>
              <input className='' type="text" name="email"  value={input.email} onChange={handleChange} />
 
@@ -117,13 +117,13 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
              </section>
           </form>
 
-        {/*Hijo 4*/}   <div className='flex justify-center items-center   w-3/4'>
+        <div className='flex justify-center items-center   w-3/4'>
             <section className=" border-b border-solid w-full border-black"></section>
             <h5>O</h5>
             <section className=" border-b border-solid w-full  border-black"></section>
           </div>
           
-        {/*Hijo 5*/}   <section className={ `${styles.googleButtonSection} w-full flex justify-center  items-center m-1`}>
+        <section className={ `${styles.googleButtonSection} w-full flex justify-center  items-center m-1`}>
             <button  type="button" className='border border-solid rounded-md border-black w-7/12 h-3/4 flex justify-center items-center ' onClick={loginwithGoogle}>
               <FcGoogle className='text-3xl' /> 
               <span className='text-black font-bold'>
@@ -132,7 +132,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
             </button>
           </section>
 
-        {/*Hijo 1*/}   <section className=' bg-secondOrange w-full flex justify-center hover:bg-yellow-300'>
+        <section className=' bg-secondOrange w-full flex justify-center hover:bg-yellow-300'>
             <button
             className=''
             onClick={() => {
