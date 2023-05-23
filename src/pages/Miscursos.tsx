@@ -73,8 +73,8 @@ export default function Miscursos(){
        
                 <ul>
                    {steps.map((i:any,key:any)=>
-                   <li style={!vistos?.includes(key)?{color:'grey',cursor:'not-allowed'}:{color:'black'}} >
-                       <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
+                   <li key={key} style={!vistos?.includes(key)?{color:'grey',cursor:'not-allowed'}:{color:'black'}} >
+                   <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
                           onClick={(e)=>SelectStep(e)} style={key===actualProgress?actualtitlecolor:{}} >
                             1.{i.step + 1}-{i.name}
                      </button>
