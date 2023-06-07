@@ -1,6 +1,6 @@
 import Alerts from '@/components/alerts/Alerts'
 import {ChangeEvent, useState,MouseEvent, useEffect} from 'react'
-
+import styles from '../styles/Miscursos.module.css'
 import { Alertsprops, MiscursosAlerts,alertsState } from '@/components/alerts/types'
 
 export default function Miscursos(){
@@ -59,7 +59,7 @@ export default function Miscursos(){
     const actualtitlecolor={background:'#FFC172' ,borderRadius:'10px'}
     
     return(
-        <div className={` flex bg-white`}>
+        <div className={`${styles.Container} flex bg-white `}>
          
              
             {seeAlert.alert1&&<Alerts close={closeAlert} Miscursos={MiscursosAlerts.Alert1} />/* usamos modales espesificos para los alerts*/}
@@ -74,7 +74,7 @@ export default function Miscursos(){
                 <ul>
                    {steps.map((i:any,key:any)=>
                    <li key={key} style={!vistos?.includes(key)?{color:'grey',cursor:'not-allowed'}:{color:'black'}} >
-                   <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
+                       <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
                           onClick={(e)=>SelectStep(e)} style={key===actualProgress?actualtitlecolor:{}} >
                             1.{i.step + 1}-{i.name}
                      </button>

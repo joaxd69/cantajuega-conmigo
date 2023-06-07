@@ -10,27 +10,22 @@ import Resgister from "./Register";
 import { AUTH_MODAL_TYPE } from "@/utils";
 
 //ICONS
-import { HiOutlineMenu, HiOutlineUserAdd, HiUser, HiUserAdd } from "react-icons/hi";
+import { HiOutlineMenu, HiUserAdd } from "react-icons/hi";
 import {
-  AiOutlineMobile,
   AiOutlineClose,
-  AiOutlineUserAdd,
-  AiOutlineUsergroupAdd,
-  AiFillFacebook,
-  AiOutlineFacebook,
 } from "react-icons/ai";
-import { BsFacebook, BsTelephone, BsYoutube } from "react-icons/bs";
-import { TiMail, TiSocialFacebook, TiSocialFacebookCircular, TiUser, TiUserAdd, TiUserAddOutline } from "react-icons/ti";
-import { IoLogoFacebook, IoMdMail } from "react-icons/io";
+import {  BsArrow90DegDown, BsArrowBarDown, BsArrowDown, BsTelephone, BsYoutube } from "react-icons/bs";
+import {  TiArrowDown, TiSocialFacebook} from "react-icons/ti";
+import {  IoMdMail } from "react-icons/io";
 
 const Navbar = () => {
   const items = [
-    { name: "Nosotros", href: "/nosotros" },
-    { name: "Metodología", href: "#metodologia" },
-    { name: "Cancionero", href: "/cancionero" },
+    { name: "Nosotros", href: "/#Nosotros" },
+    { name: "Metodología", href: "/#metodologia" },
+    { name: "Contacto", href: "/contacto" ,subhref:'/Cuestionario'},
+    { name: "Cancionero", href: "/Cancionero" },
     { name: "Membresías", href: "/membresias" },
     { name: "Cursos", href: "/Cursos" },
-    { name: "Contacto", href: "/contacto" },
     {name:"Mis cursos",href:"/Miscursos"}
   ];
 
@@ -60,21 +55,21 @@ const Navbar = () => {
         md:border-orangeicons  2xl:text-2xl   xl:text-xl lg:text-lg  sm:text-sm ">
         <section className="flex w-full justify-between lg:w-11/12 ">
           <div className="flex   justify-evenly w-7/12  ">
-            <a href="tel:+502 5430-1174" className="flex items-center">
+            <a href="https://wa.me/+50254301174?" target='_blank' className="flex items-center">
             <BsTelephone className="fill-current h-4 w-4 flex-shrink-0 mr-2 text-orangeicons" />
             <span className="">+502 5430-1174 </span>
             </a >
-            <a href="mailto:info@cantajuegaconmigo.com"className="flex items-center">
+            <a href="mailto:info@cantajuegaconmigo.com" target='_blank' className="flex items-center">
             <IoMdMail className="fill-current h-4 w-4 flex-shrink-0 mr-2  text-orangeicons" />
             <span className="">info@cantajuegaconmigo</span>
             </a >
           </div>
 
           <div className="flex  space-x-4  items-center">
-            <a href="https://www.youtube.com/@cantajuegaconmigo1543">
+            <a href="https://www.youtube.com/@cantajuegaconmigo1543" target='_blank'>
             <BsYoutube className="text-[#FF0302] text-2xl"  />
             </a>
-            <a href="https://www.facebook.com/cantajuegaconmigo">
+            <a href="https://www.facebook.com/cantajuegaconmigo" target='_blank'>
             <TiSocialFacebook className="text-[#1877F2] text-2xl" />
             </a>
             
@@ -129,13 +124,19 @@ const Navbar = () => {
           }`}
         >
           {items.map((item) => (
-            <li key={item.name} className="md:ml-8 text-2xl md:my-0 my-7 w-fit z-50">
+            <li key={item.name} className="md:ml-8 text-2xl md:my-0 my-7 w-fit z-50 relative">
               <Link
                 href={item.href}
-                className="text-gray-800 hover:text-yellow-500 duration-500"
+                className="text-black hover:text-yellow-500 duration-500 flex items-center "
               >
                 {item.name}
+                {item.subhref&&<TiArrowDown className=""/>}
               </Link>
+              {item.subhref&&
+                 <Link href={item.subhref}className={`${styles.SubHrefs} absolute hidden w-full bg-white h-[4rem] `} >
+                 <span className=" text-lg border border-orange rounded-lg">  Cuestionario </span>
+                 </Link>
+                 }
             </li>
           ))}
           <button

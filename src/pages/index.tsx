@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import NewsletterSuscription from "@/components/home/NewsletterSuscription";
 import Hero from "@/components/home/Hero";
-import ImageSection from "@/components/home/ImageSection";
 import Trailer from "@/components/home/Trailer";
-import Metodologia from "@/components/home/Metodologia";
 import Layout from "@/components/global/Layaout";
 import Metodologias from "@/components/home/metodologia/Metodologias";
 import { authUser } from "@/functions/user.query";
+import Nosotros from "@/components/home/Nosotros";
 
 export default function Home() {
   useEffect(() => {
@@ -49,11 +48,9 @@ export default function Home() {
       <main className="flex text-black overflow-x-hidden min-h-screen m-0">
         <Layout className="p-0">
           <Hero />
+          <Nosotros/>
           <Metodologias />
-          {/* <ImageSection images={'sad'} /> */}
-          <Trailer />
-          <ImageSection images={"asd"} />
-          {/* <Metodologia /> */}
+          {/* <Trailer />  */}
           <NewsletterSuscription />
         </Layout>
       </main>

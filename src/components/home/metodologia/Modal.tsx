@@ -1,11 +1,17 @@
 import React from "react";
+import {MetodologiasProps} from './Interfaces'
+import {MouseEvent,useEffect} from 'react'
+const Modal = ({ closeModal, text, title }: MetodologiasProps) => {
+  useEffect(()=>{
+    const body= document.getElementById('Body') as HTMLBodyElement;
+    body.style.overflow='hidden';
+    return()=>{
+       body.style.overflow='auto'
+      }
+  },[])
 
-const Modal = ({ closeModal, text, title }: any) => {
-  const closeModalBgClick = (e: any) => {
-    // console.log("clicked anywhere");
-    if (e.target.id === "modal-bg") {
-      // console.log("clicked modal bg");
-      // console.log(e.target);
+  const closeModalBgClick = (e:MouseEvent  <HTMLDivElement>) => {
+    if (e.currentTarget.id === "modal-bg") {
       closeModal();
     }
   };
@@ -16,10 +22,13 @@ const Modal = ({ closeModal, text, title }: any) => {
       className="fixed z-50 top-0 left-0 w-screen h-screen bg-zinc-700/50 flex flex-col justify-center items-center"
       onClick={closeModalBgClick}
     >
-      <div className="bg-white md:w-6/12 w-10/12 max-w-screen-md rounded-lg p-4 m-4 flex flex-col relative shadow-2xl">
-        <h1 className="text-center pb-8 text-4xl ">{title}</h1>
-        <div className="w-6/12 h-1 mx-auto mb-8 bg-yellow-500" />
-        <p className="p-4">{text}</p>
+      <div className="w-[50rem] h-[15rem] text-center flex flex-col bg-white items-center p-2">
+        <section className="h-1/6 border-b-4 border-yellow w-[30rem]">
+          <h1 className=" text-2xl">{title}</h1>
+        </section>
+        <section className="w-full h-5/6 flex justify-center items-center">
+          <p className="w-11/12">{text}</p>
+        </section>
       </div>
     </div>
   );
