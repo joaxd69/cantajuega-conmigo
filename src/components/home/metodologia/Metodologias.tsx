@@ -13,7 +13,7 @@ export default function Metodologias(){
   })
   const closemodal=()=>{
     setModal(false)
-  }
+  }   
   
   const setContentModal=(e:MouseEvent<HTMLButtonElement>):void=>{
      const value:string=e.currentTarget.value
