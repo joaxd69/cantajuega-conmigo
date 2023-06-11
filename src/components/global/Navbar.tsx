@@ -1,155 +1,107 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from '../../styles/Navbar.module.css'
-// USER
-import Login from "./Login";
-import Resgister from "./Register";
-import { AUTH_MODAL_TYPE } from "@/utils";
-
-//ICONS
-import { HiOutlineMenu, HiUserAdd } from "react-icons/hi";
-import {
-  AiOutlineClose,
-} from "react-icons/ai";
-import {  BsArrow90DegDown, BsArrowBarDown, BsArrowDown, BsTelephone, BsYoutube } from "react-icons/bs";
+import Topnav from "./Topnav";
 import {  TiArrowDown, TiSocialFacebook} from "react-icons/ti";
-import {  IoMdMail } from "react-icons/io";
-
+import logo from '../../../public/img/Logo.png'
+import { HiOutlineMenu } from "react-icons/hi";
 const Navbar = () => {
   const items = [
     { name: "Nosotros", href: "/#Nosotros" },
     { name: "Metodología", href: "/#metodologia" },
-    { name: "Contacto", href: "/contacto" ,subhref:'/Cuestionario'},
+    { name: "Contacto", href: "/#contacto" ,subhref:'/Cuestionario'},
     { name: "Cancionero", href: "/Cancionero" },
     { name: "Membresías", href: "/membresias" },
     { name: "Cursos", href: "/Cursos" },
     {name:"Mis cursos",href:"/Miscursos"}
   ];
 
-  interface OpenInterface {
-    LOGIN: boolean;
-    REGISTER: boolean;
-  }
-  const [openMenu, setOpenMenu] = useState(false); // -> Menu hamburguesa
+  const [menu, setMenu] = useState(false); // -> Menu hamburguesa
   // const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
-  const [open, setOpen] = useState<OpenInterface>({
-    LOGIN: false,
-    REGISTER: false,
-  });
+  useEffect(()=>{
+    const body= document.getElementById('Body') as HTMLBodyElement;
+     menu? body.style.overflow='hidden' :
+           body.style.overflow='auto'
 
-  const handleOpen = (name: AUTH_MODAL_TYPE) => {
-    setOpen((prevOpen) => ({
-      ...prevOpen,
-      [name]: !prevOpen[name],
-    }));
-  };
-
+    return()=>{
+       body.style.overflow='auto'
+      }
+  },[menu])
+ 
+  const openMenu=()=>{
+    setMenu(!menu)
+  }
+ let visiblemenu=menu?'left-0':'left-[-200%]'
   return (
-    <nav className="shadow-md w-full h-auto  top-0 left-0">
-      {/* top nav */}
-      <div className="hidden bg-white 2xl:w-full font-sans font-normal md:pb-5 md:flex md:top-0 md:w-auto md:px-4
-       md:py-2 md:justify-end md:items-center  md:border-b-2 md:border-dashed 
-        md:border-orangeicons  2xl:text-2xl   xl:text-xl lg:text-lg  sm:text-sm ">
-        <section className="flex w-full justify-between lg:w-11/12 ">
-          <div className="flex   justify-evenly w-7/12  ">
-            <a href="https://wa.me/+50254301174?" target='_blank' className="flex items-center">
-            <BsTelephone className="fill-current h-4 w-4 flex-shrink-0 mr-2 text-orangeicons" />
-            <span className="">+502 5430-1174 </span>
-            </a >
-            <a href="mailto:info@cantajuegaconmigo.com" target='_blank' className="flex items-center">
-            <IoMdMail className="fill-current h-4 w-4 flex-shrink-0 mr-2  text-orangeicons" />
-            <span className="">info@cantajuegaconmigo</span>
-            </a >
-          </div>
+    <nav className={`${styles.Container}  w-full h-[8rem]
+       lg:h-[9rem] flex flex-col  `} >
 
-          <div className="flex  space-x-4  items-center">
-            <a href="https://www.youtube.com/@cantajuegaconmigo1543" target='_blank'>
-            <BsYoutube className="text-[#FF0302] text-2xl"  />
-            </a>
-            <a href="https://www.facebook.com/cantajuegaconmigo" target='_blank'>
-            <TiSocialFacebook className="text-[#1877F2] text-2xl" />
-            </a>
+      <div  className=" w-full   h-2/6 flex flex-col z-50
+       min-[940px]:h-2/6 min-[940px]:flex min-[940px]:flex-col
+      landscape:min-[500px]:z-0">
+          <Topnav/>
+      </div>
+
+      <div className="flex w-full h-4/6 items-center relative
+         min-[940px]:hidden">
+          <HiOutlineMenu  className=" text-5xl cursor-pointer" onClick={openMenu}/>
+           <Image src={logo} alt='logo-cj' className="absolute right-0 h-full w-auto z-[-1100]"/>
+      </div>
+
+      <div className={`fixed  z-40 w-11/12  h-full bg-blue bg-opacity-70  ${visiblemenu} transition-all duration-500
+       min-[930px]:transition-none min-[930px]:duration-0
+       min-[940px]:relative min-[940px]:left-0 min-[940px]:flex min-[940px]:justify-end   min-[940px]:w-full  min-[940px]:h-4/6 min-[940px]:bg-white
+       md:w-6/12
+       sm:w-6/12
+       text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl  2xl:text-3xl`}>
+           <button onClick={openMenu} className="absolute right-5  text-white text-4xl top-[10%] min-[940px]:hidden">&lt;</button>
+
+           <Image src={logo} alt="cj-logo" className="absolute left-0  top-0 hidden
+           min-[940px]:absolute  min-[940px]:left-0  min-[940px]:top-0  min-[940px]:block
+           md:w-[24%] md:top-[3%] md:h-auto md:max-h-[100%] 
+           xl:w-auto xl:h-full xl:left-[5%] 2xl:left-[5%]  "/>
+
+         <section className=" flex flex-col justify-end items-center  h-full  
+          min-[940px]:w-full min-[940px]:flex min-[940px]:justify-end min-[940px]:flex-row">
             
-            
-            <span
-              className="hover:text-[#FFC172] cursor-pointer flex"
-              onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}
-            >
-             <HiUserAdd className=" text-orangeicons transform scale-x-[-1] text-2xl" />
-              Iniciar Sesión
-            </span>
-          </div>
+            <div  className="  h-5/6  w-4/6 flex flex-col items-center justify-evenly 
+             landscape:min-[500px]:h-full
+             min-[940px]:w-[76%] min-[940px]:h-full min-[940px]:flex min-[940px]:flex-row 
+             min-[940px]:items-center min-[940px]:justify-between
+             xl:w-[70%] 2xl:w-[73%] min-[1930px]:w-[70%]">
+             {items.map((i,key)=>
+              <article key={key} className="  w-full flex justify-center h-[7%] min-h-[2.5rem] group
+              min-[940px]:w-auto min-[940px]:flex min-[940px]:h-auto min-[940px]:items-center
+            min-[940px]:last:bg-orangeicons min-[940px]:last:p-2 min-[940px]:last:rounded-xl 
+            max-[940px]  ">
+                <button className="border  font-fredoka font-semibold border-orangeicons w-4/5 max-w-[12rem] max-h-[4rem]
+                max-[940px]:bg-white 
+                min-[940px]:border-0 min-[940px]:w-auto min-[940px]:bg-auto
+                landscape:min-[500px]:h-5/6
+                ">
+                  <Link href={i.href} className="relative">
+                    {i.name}{i.subhref&&<TiArrowDown className="absolute right-[38%] "/>}
+                  </Link>
+                </button>
+                {i.subhref&&
+              <button className="absolute  bg-white h-fit border rounded-lg border-orangeicons hidden 
+              min-[940px]:group-hover:block
+                  min-[940px]:top-[70%] ">
+                  <Link href={i.subhref}>
+                  Cuestionario
+                  </Link>
+                </button>
+                }
+              </article>
+             )} {/* aqui me quede */}  
+              </div>
         </section>
       </div>
-      {/* top nav */}
 
-
-
-      <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
-        <div
-          className="font-bold text-2xl cursor-pointer flex items-center 
-      text-gray-800"
-        >
-          <Link href={"/"}>
-            <Image
-              src="https://www.cantajuegaconmigo.com/wp-content/uploads/2021/11/NUEVO-LOGO.png"
-              alt=""
-              width={200}
-              height={50}
-              className=" gap-4 px-2 py-2"
-            />
-          </Link>
-        </div>
-
-        <div className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden ">
-          {openMenu ? (
-            <AiOutlineClose
-              className="cursor-pointer"
-              onClick={() => setOpenMenu(false)}
-            />
-          ) : (
-            <HiOutlineMenu
-              className="cursor-pointer"
-              onClick={() => setOpenMenu(true)}
-            />
-          )}
-        </div>
-
-        <ul
-          className={` ${styles.List} md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[50] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-            openMenu ? "top-20 " : "top-[-600px]"
-          }`}
-        >
-          {items.map((item) => (
-            <li key={item.name} className="md:ml-8 text-2xl md:my-0 my-7 w-fit z-50 relative">
-              <Link
-                href={item.href}
-                className="text-black hover:text-yellow-500 duration-500 flex items-center "
-              >
-                {item.name}
-                {item.subhref&&<TiArrowDown className=""/>}
-              </Link>
-              {item.subhref&&
-                 <Link href={item.subhref}className={`${styles.SubHrefs} absolute hidden w-full bg-white h-[4rem] `} >
-                 <span className=" text-lg border border-orange rounded-lg">  Cuestionario </span>
-                 </Link>
-                 }
-            </li>
-          ))}
-          <button
-            onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}
-            className="md:hidden bg-yellow-600 text-white  py-2 px-6 rounded md:ml-8 hover:bg-yellow-400 
-                duration-500"
-          >
-            Iniciar sesión
-          </button>
-        </ul>
-      </div>
-      {open.LOGIN && <Login handleOpen={handleOpen} />}
-      {open.REGISTER && <Resgister handleOpen={handleOpen} />}
+     
     </nav>
   );
 };

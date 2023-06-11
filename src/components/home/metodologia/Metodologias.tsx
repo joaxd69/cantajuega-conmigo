@@ -13,7 +13,7 @@ export default function Metodologias(){
   })
   const closemodal=()=>{
     setModal(false)
-  }   
+  }
   
   const setContentModal=(e:MouseEvent<HTMLButtonElement>):void=>{
      const value:string=e.currentTarget.value
@@ -25,7 +25,7 @@ export default function Metodologias(){
     setModal(true)
   }
    return (
-    <div className={`${styles.Container} h-[20rem] `}>
+    <div className={`${styles.Container} h-[20rem] `} id='metodologia'>
       <section className='flex flex-col items-center justify-center h-full  relative'>
         <article className='z-20 h-1/6 '>
         <h1 className=' text-5xl text-yellow'>Metodología</h1>
