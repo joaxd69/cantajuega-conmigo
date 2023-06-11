@@ -15,8 +15,11 @@ module.exports = {
 
         xl: { max: "1279px" },
         // => @media (max-width: 1279px) { ... }
-
+        
         lg: { max: "1023px" },
+        // => @media (max-width: 1023px) { ... }
+
+        navresp: { max: "940px" },
         // => @media (max-width: 1023px) { ... }
 
         md: { max: "767px" },
@@ -40,10 +43,16 @@ module.exports = {
         blue: "#26798e",
         green: "#63caa7",
         cream: "#ffe3b3",
+        grayicons:'#687076',
+        orangeicons:'#FF3D00',
+        violet:'#9510B8',
+        red:'#FF0303',
+        yellow:'#F9A825'
       },
       fontFamily: {
         main: ["./public/fonts/ITCKRIST/ITCKRIST.ttf"],
         sans: ["Roboto", "sans-serif"],
+        fredoka: ['Fredoka One']
       },
     },
   },
