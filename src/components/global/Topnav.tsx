@@ -1,14 +1,11 @@
-import { HiOutlineMenu, HiUserAdd } from "react-icons/hi";
-import {
-  AiOutlineClose,
-} from "react-icons/ai";
-import {   BsTelephone, BsYoutube } from "react-icons/bs";
-import {  TiArrowDown, TiSocialFacebook} from "react-icons/ti";
-import {  IoMdMail } from "react-icons/io";
+import {HiUserAdd } from "react-icons/hi";
+import {BsTelephone,BsYoutube } from "react-icons/bs";
+import {TiSocialFacebook} from "react-icons/ti";
+import {IoMdMail} from "react-icons/io";
 import Login from "./Login";
 import Resgister from "./Register";
-import { AUTH_MODAL_TYPE } from "@/utils";
-import { useState } from "react";
+import {AUTH_MODAL_TYPE} from "@/utils";
+import {useState} from "react";
 
 interface OpenInterface {
     LOGIN: boolean;
@@ -21,13 +18,13 @@ export default function Topnav(){
         REGISTER: false,
       });
 
-
     const handleOpen = (name: AUTH_MODAL_TYPE) => {
         setOpen((prevOpen) => ({
           ...prevOpen,
           [name]: !prevOpen[name],
         }));
       };
+      
     return (
         <div className=" bg-white w-full flex items-end sm:items-center font-sans font-normal
          border-b-2 border-dashed border-orangeicons h-full ">
@@ -69,7 +66,7 @@ export default function Topnav(){
           </div>
         </section>
         {open.LOGIN && <Login handleOpen={handleOpen} />}
-      {open.REGISTER && <Resgister handleOpen={handleOpen} />}
+        {open.REGISTER && <Resgister handleOpen={handleOpen} />}
       </div>
     )
 }
