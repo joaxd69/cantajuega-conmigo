@@ -2,6 +2,7 @@ import { useState } from "react"
 import style from '../../styles/Admin.module.css'
 import Image from "next/image"
 import logo from '../../../public/img/Logo.png'
+import example from '../../../public/img/Star 9.png'
 import CardsStatistics from "@/components/Admin/CardsStatistics"
 export default function Admin(){
     const [isadmin,setIsAdmin]=useState<boolean>(true)
@@ -27,7 +28,7 @@ export default function Admin(){
                     <Image src={logo} alt="logo" className="  sm:absolute  max-h-[5rem] sm:h-[60%] sm:max-h-[5rem] w-auto left-[5%]" />
                     <article className="text-black h-3/6  sm:h-auto  sm:text-white text-3xl w-full sm:w-11/12 flex  justify-center sm:justify-end  ">
                         <div className="relative flex flex-col items-center w-full sm:w-auto ">
-                          <Image alt="admin" className="  sm:absolute border-black  border rounded-full w-10 left-[-50%] text-[0rem]" src={''}/>
+                          <Image alt="admin" className="  sm:absolute border-black  border rounded-full w-10 left-[-50%] text-[0rem]" src={example}/>
                           <h1 className=" h-full sm:h-auto max-sm:bg-white w-full text-center" >Hola kathy</h1>
                         </div>
                     </article>
