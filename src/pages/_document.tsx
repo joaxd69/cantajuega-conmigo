@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body style={{overflowX:'hidden'}} id='Body'>
+      <body style={{overflowX:'hidden'}} id='Body' className=' min-h-screen'>
         <Main />
         <NextScript />
       </body>

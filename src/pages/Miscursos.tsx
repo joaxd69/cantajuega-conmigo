@@ -6,7 +6,8 @@ import { Alertsprops, MiscursosAlerts,alertsState } from '@/components/alerts/ty
 export default function Miscursos(){
     const [actualProgress,setActualProgress]=useState<number>(0)
     const [actualVideo,setActualVideo]=useState<string>('')
-    const [videoPlay,setvideoPlay]=useState<boolean>()
+    const [videoPlay,setvideoPlay]=useState<boolean>(false)
+    
    const [seeAlert,setSeeAlerts]=useState<alertsState>({///declarar el statte de alerts
     alert1:false,
     alert2:false
@@ -29,8 +30,10 @@ export default function Miscursos(){
     const SelectStep= (event:MouseEvent<HTMLButtonElement>)=>{
         event.preventDefault()
         
-        parseInt( event.currentTarget.value)<1?setActualProgress(parseInt( event.currentTarget.value))
-        :steps[parseInt( event.currentTarget.value)-1].visto?setActualProgress(parseInt( event.currentTarget.value)):
+        parseInt( event.currentTarget.value)<1?
+       ( setActualProgress(parseInt( event.currentTarget.value)),setvideoPlay(true)):
+        steps[parseInt( event.currentTarget.value)-1].visto?
+        (setActualProgress(parseInt( event.currentTarget.value)),setvideoPlay(true)):
         setSeeAlerts({text1:'Atencion.',text2:`Debe ver el video ${steps[vistos.length-1].name} para avanzar`});//creamos alerts personalizados
          
     }
@@ -45,7 +48,7 @@ export default function Miscursos(){
     //     let titles=document.getElementById()
     // }
     const play=()=>{
-        setvideoPlay(true)
+        
         setActualVideo(`Reproduciendo ${steps[actualProgress].name}....`)
         setTimeout(() => {
             setActualVideo('Termino el video')
@@ -68,14 +71,26 @@ export default function Miscursos(){
 
              
 
-            <section className={` w-48 border-r-2 border-orangeicons border-dashed`}>
-                <h1 className='' style={{}}>Mi progreso</h1>
-       
+            <section className={` w-full ${videoPlay?'hidden':'flex'} flex-col items-center  pt-[10%] sm:pt-0 sm:block sm:w-48 sm:border-r-2 border-orangeicons border-dashed`}>
+                <h1 className=' text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl' >Mi progreso</h1>
+                 <h2>etapa 1</h2>
                 <ul>
                    {steps.map((i:any,key:any)=>
                    <li key={key} style={!vistos?.includes(key)?{color:'grey',cursor:'not-allowed'}:{color:'black'}} >
                        <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
                           onClick={(e)=>SelectStep(e)} style={key===actualProgress?actualtitlecolor:{}} >
+                            1.{i.step + 1}-{i.name}
+                     </button>
+                   </li>
+                    
+                    )}
+                </ul>
+                 <h2>etapa 2</h2>
+                <ul>
+                   {steps.map((i:any,key:any)=>
+                   <li key={key} style={!vistos?.includes(key)?{color:'grey',cursor:'not-allowed'}:{color:'black'}} >
+                       <button key={key} value={i.step} name={i.video} className={`${!vistos?.includes(key)?'cursor-not-allowed':'cursor-pointer'} p-2`} 
+                          onClick={(e)=>SelectStep(e)}  >
                             1.{i.step + 1}-{i.name}
                      </button>
                    </li>
@@ -88,10 +103,10 @@ export default function Miscursos(){
 
                     
                    
-            <section className={`flex flex-col w-full justify-center items-center`}>
-                <div className={`flex flex-col justify-center items-center w-7/12  h-[20rem]`}>
+            <section className={` ${videoPlay?'flex relative':'hidden'} sm:flex flex-col w-full justify-center items-center`}>
+                <div className={`flex flex-col justify-center items-center w-10/12 h-[24rem] max-w-[50rem] md:w-9/12  md:landscape:w-11/12 sm:w-9/12 sm:h-[20rem]  md:landscape:h-[23rem]`}>
                      <h1 className=''>{actualVideo}</h1>
-                    <h1 className=''>{steps[actualProgress].video}</h1>
+                    <h1 className='text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>{steps[actualProgress].video}</h1>
                     <video src="" className=' bg-[#D9D9D9] w-full h-5/6 '></video>
                     <button onClick={play}>play</button>
                 </div>
@@ -99,6 +114,10 @@ export default function Miscursos(){
                     <button className=" border rounded border-orangeicons h-6/6 p-2 w-[8rem] ml-10 mr-10 bg-[#FFFFFF]">Anterior</button>
                     <button className=" rounded bg-orangeicons h-6/6 p-2 w-[8rem] ml-10 mr-10" onClick={nextStep} >Siguiente</button>
                 </div>
+           
+                    <button className=" block absolute bottom-[10%] sm:hidden border rounded bg-blue text-white  h-6/6 p-2 w-[8rem]"
+                     onClick={()=>setvideoPlay(false)}>Volver</button>
+             
             </section>
 
         </div>

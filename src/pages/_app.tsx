@@ -4,9 +4,11 @@ import store from "@/context/store";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { useState } from "react";
 import { Provider } from "react-redux";
 
 function App({ Component, pageProps }: AppProps) {
+  const [isAdmin,setIsAdmin]=useState<boolean>(true)
   return (
     <>
       <Head>
@@ -16,11 +18,11 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`bg-light w-full min-h-screen`}>
-        <Navbar />
+      { !isAdmin&&<Navbar />}
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
-        <Footer />
+      {!isAdmin&&<Footer />}
       </main>
     </>
   );

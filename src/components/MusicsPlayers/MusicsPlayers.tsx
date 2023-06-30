@@ -104,13 +104,13 @@ export default function MusicsPlayers({Musics}:props){
   } 
 
    return(
-    <div className={`${styles.LoggedContainer} border  w-3/6 h-[45rem] overflow-x-auto flex justify-center  `}>
-    <ul className=" flex flex-col ">
+    <div className={`${styles.LoggedContainer} border  w-full h-full overflow-x-auto flex justify-center  `}>
+    <ul className=" flex flex-col  w-full items-center ">
 
      {Musics?.map((i:any,key)=>
-     <div key={key} className=" bg-[#FFFFFF] flex w-[25rem] h-[4rem]  items-center relative  mt-8 mb-8">
-        <section className="h-[4rem]  flex items-center rounded-xl" style={{backgroundColor:[...colors,...colors][key]}}>       
-           <span key={key} className="">
+     <div key={key} className=" bg-[#FFFFFF] flex max-w-[28rem] w-full sm:w-11/12 h-[4rem]  items-center relative  mt-8 mb-8">
+        <section className="h-[4rem] p-1 w-4/12 flex items-center rounded-xl" style={{backgroundColor:[...colors,...colors][key]}}>       
+           <span key={key} className=" text-center text-sm sm:text-base">
                Titulo de cancion {i.cancion}
            </span>
         </section>
@@ -120,7 +120,7 @@ export default function MusicsPlayers({Musics}:props){
            <HiVolumeUp onClick={()=>SoundMute(i.cancion)}/>}
         </section>
 
-        <span id={`time ${i.cancion}`} className="AudioDurations absolute right-0 bottom-0 text-xs"> </span>
+        <span id={`time ${i.cancion}`} className="AudioDurations hidden min-[360px]:block absolute right-0 bottom-0 text-xs"> </span>
 
         <section className="flex flex-col w-6/12 justify-between h-full relative">
             

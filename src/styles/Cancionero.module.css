@@ -2,6 +2,50 @@
   font-family: 'Fredoka One';
   src: url('../../public/fonts/Fredoka/Fredoka.ttf') format('truetype');
 }
+
+
+
+@media(min-height:1000px) and (orientation: portrait){ /* mas alto que ancho */
+  .SecondContainer{
+    height: 50rem;
+    /* border: yellow 8px solid; */
+  }
+}
+
+@media(min-height:1000px) and (orientation:landscape){/* pantallas horizontales */
+  .SecondContainer{
+     height: 45rem;
+     /* border: blue solid 5px; */
+  }
+}
+@media(min-height:1100px) and (orientation: portrait){ /* mas alto que ancho */
+  .SecondContainer{
+    height: 58rem;
+    /* border: #FF3D00 8px solid; */
+  }
+}
+
+@media(min-height:1100px) and (orientation:landscape){/* pantallas horizontales */
+  .SecondContainer{
+     height: 50rem;
+     /* border: violet solid 8px; */
+  }
+}
+
+@media(min-height:1200px) and (orientation: portrait){ /* mas alto que ancho */
+  .SecondContainer{
+    height: 60rem;
+    /* border: white 8px solid; */
+  }
+}
+@media(min-height:1200px) and (orientation: landscape){ /* mas alto que ancho */
+  .SecondContainer{
+    height: 65rem;
+    /* border: white 8px solid; */
+  }
+}
+
+
 .Container p{
     font-family:'Kristen ITC'
 }
@@ -35,38 +79,46 @@
     right: 25%;
 }
 .Star1{
-    position: absolute;
-    height: 3rem;
-    width: 3rem;
-    top: 5%;
-    right: 7%;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  top: 5%;
+  right: 7%;
 }
 .Star2{
-    position: absolute;
-    height: 3rem;
-    width: 3rem;
-    left: 50%;
-    top: 55%;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  left: 50%;
+  top: 55%;
 }
 .Star3{
-    position: absolute;
-    height: 3rem;
-    width: 3rem;
-    bottom: 40%;
-    left: 10%;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  bottom: 40%;
+  left: 10%;
 }
-.Image3{
-    position: absolute;
-    height:23.5rem;
-    width:23.5rem;
-    z-index: 1;
-    right: 15%;
-    top: 0%;
+@media (max-width:465px) {
+  .Star1{
+    
+    height: 2rem;
+    width: 2rem;
+
 }
-.Image3B{
-    width: 25rem;
-    margin: 0 auto;
+.Star2{
+  
+    height: 2rem;
+    width: 2rem;
+   
 }
+.Star3{
+    height: 2rem;
+    width: 2rem;
+}
+}
+
+
 
 .ProgresBar{
     appearance: none;
