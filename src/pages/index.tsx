@@ -45,7 +45,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex text-black overflow-x-hidden min-h-screen m-0">
+      <main id="mainhome" className="flex text-black overflow-x-hidden min-h-screen m-0">
         <Layout className="p-0">
           <Hero />
           <Nosotros/>

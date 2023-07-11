@@ -2,6 +2,7 @@ import Alerts from '@/components/alerts/Alerts'
 import {ChangeEvent, useState,MouseEvent, useEffect} from 'react'
 import styles from '../styles/Miscursos.module.css'
 import { Alertsprops, MiscursosAlerts,alertsState } from '@/components/alerts/types'
+import { useAppSelector } from '@/context/store'
 
 export default function Miscursos(){
     const [actualProgress,setActualProgress]=useState<number>(0)
@@ -34,7 +35,7 @@ export default function Miscursos(){
        ( setActualProgress(parseInt( event.currentTarget.value)),setvideoPlay(true)):
         steps[parseInt( event.currentTarget.value)-1].visto?
         (setActualProgress(parseInt( event.currentTarget.value)),setvideoPlay(true)):
-        setSeeAlerts({text1:'Atencion.',text2:`Debe ver el video ${steps[vistos.length-1].name} para avanzar`});//creamos alerts personalizados
+        setSeeAlerts({text1:'Atencion.',text2:`Debe ver el video ${steps[vistos.length-1].name} para avanzar`,CancelText:'Cerrar' });//creamos alerts personalizados
          
     }
   
@@ -60,14 +61,19 @@ export default function Miscursos(){
         }, 10000);
     }
     const actualtitlecolor={background:'#FFC172' ,borderRadius:'10px'}
-    
+    const auth =useAppSelector(state=>state.authReducer.isAuthenticated)
+    if(!auth){
+        return <div className=' min-h-screen flex items-center justify-center'>
+            <h1>Solo para usuarios registrados.</h1>
+        </div>
+    }
     return(
-        <div className={`${styles.Container} flex bg-white `}>
+        <div id='MisCursosPage' className={`${styles.Container} flex bg-white `}>
          
              
-            {seeAlert.alert1&&<Alerts close={closeAlert} Miscursos={MiscursosAlerts.Alert1} />/* usamos modales espesificos para los alerts*/}
+            {seeAlert.alert1&&<Alerts close={closeAlert} Miscursos={MiscursosAlerts.Alert1} Page={'Miscursos'} />/* usamos modales espesificos para los alerts*/}
             
-            {seeAlert.text1&&<Alerts close={closeAlert} Personalizado={{text1:seeAlert.text1,text2:seeAlert.text2}}/>}
+            {seeAlert.text1&&<Alerts close={closeAlert} Personalizado={seeAlert} Page={'Miscursos'} />}
 
              
 

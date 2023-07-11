@@ -5,14 +5,24 @@ import {IoMdMail} from "react-icons/io";
 import Login from "./Login";
 import Resgister from "./Register";
 import {AUTH_MODAL_TYPE} from "@/utils";
-import {useState} from "react";
+import {MouseEvent, useState} from "react";
+import { useAppSelector } from "@/context/store";
+import { logoutUser } from "@/functions/user.query";
+import Alerts from "../alerts/Alerts";
+import { alertsState } from "../alerts/types";
+import Link from "next/link";
 
 interface OpenInterface {
     LOGIN: boolean;
     REGISTER: boolean;
   }
 export default function Topnav(){
-
+    const auth=useAppSelector(state=>state.authReducer.isAuthenticated)
+    const [seeAlert,setSeeAlerts]=useState<alertsState>({///Traer la interface alertsState para tipar 
+      alert1:false
+     })
+     const user=useAppSelector(state=>state.userReducer?.user?.email);
+     const isAdmin=user==='joakig6@gmail.com'
     const [open, setOpen] = useState<OpenInterface>({
         LOGIN: false,
         REGISTER: false,
@@ -24,7 +34,22 @@ export default function Topnav(){
           [name]: !prevOpen[name],
         }));
       };
-      
+
+    const preconfirmLogout=(e:MouseEvent<HTMLButtonElement>)=>{
+      e.preventDefault();
+      setSeeAlerts({
+        text1:'Esta a punto de cerrar su sesión.',
+        text2:'desea continuar?',
+        alert1:true,
+        CancelText:'Permanecer',
+        AcceptTText:'Cerrar sesión'
+      })
+    }
+    const closeAlert=()=>{
+      setSeeAlerts({
+        alert1:false
+      })
+    }
     return (
         <div className=" bg-white w-full flex items-end sm:items-center font-sans font-normal
          border-b-2 border-dashed border-orangeicons h-full ">
@@ -56,17 +81,27 @@ export default function Topnav(){
             </div>
             
             
-            <span 
+           { !auth&&<span 
               className="hover:text-[#FFC172] cursor-pointer flex items-center "
               onClick={() => handleOpen(AUTH_MODAL_TYPE.LOGIN)}
             >
              <HiUserAdd className=" text-orangeicons transform scale-x-[-1] text-2xl" />
               Iniciar Sesión
-            </span>
+            </span>}
+            {auth&&
+            <span onClick={preconfirmLogout} className=" cursor-pointer">Cerrar sesion</span>
+            }
+            {
+              isAdmin&&
+              <Link href={'/Admin'}>
+                <span>Admin</span>
+              </Link>
+            }
           </div>
         </section>
         {open.LOGIN && <Login handleOpen={handleOpen} />}
         {open.REGISTER && <Resgister handleOpen={handleOpen} />}
+      {seeAlert.alert1&&  <Alerts Personalizado={seeAlert} onClick={()=>logoutUser()} close={closeAlert} />}
       </div>
     )
 }

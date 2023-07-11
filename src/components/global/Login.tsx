@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import styles from "../../styles/login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser, loginwithGoogle } from "@/functions/user.query";
 import { loginError } from "./FormsErrors";
 import { AUTH_MODAL_TYPE } from "@/utils";
@@ -58,6 +58,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
       }
     loginUser(input).then((res) => {
       handleOpen(AUTH_MODAL_TYPE.LOGIN);
+      console.log(res)
     });
   };
   function showPassword(): void {
@@ -70,6 +71,34 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
     }
     setVisiblePassword(!visiblePassword)
   }
+
+  useEffect(()=>{
+    const body= document.getElementById('Body') as HTMLBodyElement;
+    const mainhome= document.getElementById('mainhome') as HTMLElement;
+    const nav= document.getElementById('menunav') as HTMLElement;
+    const CancioneroPage= document.getElementById('CancioneroPage') as HTMLElement;
+    const MisCursosPage= document.getElementById('MisCursosPage') as HTMLElement;
+    const MembresiasPage= document.getElementById('MembresiasPage') as HTMLElement;
+    const CursosPage= document.getElementById('CursosPage') as HTMLElement;
+ 
+    body.style.overflow='hidden';
+    mainhome&&( mainhome.style.position='relative', mainhome.style.zIndex='-1')
+    CancioneroPage&&( CancioneroPage.style.position='relative', CancioneroPage.style.zIndex='-1')
+    MisCursosPage&&( MisCursosPage.style.position='relative', MisCursosPage.style.zIndex='-1')
+    MembresiasPage&&( MembresiasPage.style.position='relative', MembresiasPage.style.zIndex='-1')
+    CursosPage&&( CursosPage.style.position='relative', CursosPage.style.zIndex='-1')
+    
+    nav.style.zIndex='-1'
+    return()=>{
+      body.style.overflow='auto'
+      mainhome&&( mainhome.style.position='static',mainhome.style.zIndex='50')
+      CancioneroPage&&( CancioneroPage.style.position='static',CancioneroPage.style.zIndex='50')
+      MembresiasPage&&( MembresiasPage.style.position='static',MembresiasPage.style.zIndex='50')
+      MisCursosPage&&( MisCursosPage.style.position='static',MisCursosPage.style.zIndex='50')
+      CursosPage&&( CursosPage.style.position='static',CursosPage.style.zIndex='50')
+       nav.style.zIndex='50'
+      }
+  },[])
 
   return (
     <div className={`${styles.Container} fixed h-full w-full z-50 flex top-0 justify-center items-center overflow-auto`} >

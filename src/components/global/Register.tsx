@@ -1,9 +1,10 @@
 import { AUTH_MODAL_TYPE } from '@/utils';
 import styles from '../../styles/register.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { registerError } from './FormsErrors';
 import { IoMdClose,IoMdEye,IoMdEyeOff} from 'react-icons/io';
 import { FcGoogle } from 'react-icons/fc';
+import { registerUser } from '@/functions/user.query';
 
 interface RegisterProps {
    handleOpen: (name: AUTH_MODAL_TYPE) => void;
@@ -57,6 +58,7 @@ interface ErrorProps {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    registerUser(input)
     if(Object.keys(error).length){
        error.global&&alert(error.global)
        return setVisibleErrors(true),
@@ -66,6 +68,23 @@ interface ErrorProps {
       }
      console.log('Creado')
   };
+
+  useEffect(()=>{
+    const body= document.getElementById('Body') as HTMLBodyElement;
+    const mainhome= document.getElementById('mainhome') as HTMLBodyElement;
+    const nav= document.getElementById('menunav') as HTMLBodyElement;
+ 
+    body.style.overflow='hidden';
+    mainhome.style.position='relative'
+    mainhome.style.zIndex='-1'
+    nav.style.zIndex='-1'
+    return()=>{
+       body.style.overflow='auto'
+       mainhome.style.position='static'
+       mainhome.style.zIndex='50'
+       nav.style.zIndex='50'
+      }
+  },[])
 
   function showPassword(): void {
     const passwordInput = document.getElementById("password") as HTMLInputElement;

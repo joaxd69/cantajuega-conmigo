@@ -17,18 +17,25 @@ export enum PagosAlerts{
 export enum CuestionarioAlerts{
   Confirm='Confirm'
 }
+export enum AdminAlerts{
+  Confirm='Confirm',
+
+}
 
 export interface Alertsprops{
     Personalizado?:{
         text1?:string,
         text2?:string,
+        CancelText?:string,
+        AcceptTText?:string,
     },
     Miscursos?:MiscursosAlerts,
     Membresias?:MembresiasAlerts,
     Pagos?:PagosAlerts,
     Cuestionario?:CuestionarioAlerts,
     close:MouseEventHandler<HTMLButtonElement>,
-    submitFunction?:MouseEventHandler<HTMLButtonElement>
+    onClick?:MouseEventHandler<HTMLButtonElement>,
+    Admin?:AdminAlerts
   }
 
 export interface alertsState{
@@ -39,4 +46,6 @@ export interface alertsState{
     alert5?:boolean,
     text1?:string,
     text2?:string,
+    CancelText?:string,
+    AcceptTText?:string,
 }

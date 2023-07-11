@@ -7,13 +7,16 @@ import styles from '../styles/Cancionero.module.css'
 import {  useState } from "react";
 import { IoMdDownload } from "react-icons/io";
 import MusicsPlayers from "@/components/MusicsPlayers/MusicsPlayers";
+import { useAppSelector } from "@/context/store";
+import { useSelector } from "react-redux";
 
 
 export default function Cancionero(){
-    const [login,setLogin]= useState<boolean>(false)
+    // const [isAuth,setLogin]= useState<boolean>(false)
+    const isAuth= useAppSelector(state=>state.authReducer.isAuthenticated)
 
-    const loginfalso=()=>setLogin(!login)
-
+    // const loginfalso=()=>setLogin(!isAuth)
+    const actualuser=useSelector((state)=>state)
     const fakeaudios=[
         {cancion:'1',url:'https://res.cloudinary.com/daekdf1sh/video/upload/v1684967568/Wiz_Khalifa_Black_And_Yellow_GMix_ft_Snoop_Dogg_Juicy_J_TPain_ocicnm.mp3'},
         {cancion:'2',url:'https://res.cloudinary.com/daekdf1sh/video/upload/v1684982450/Drake_GODS_PLAN_rekoav.mp3'},
@@ -25,9 +28,12 @@ export default function Cancionero(){
         {cancion:'8',url:'https://res.cloudinary.com/daekdf1sh/video/upload/v1684982550/Foster_The_People_Pumped_Up_Kicks_tcdrup.mp3'},
         {cancion:'9',url:'https://res.cloudinary.com/daekdf1sh/video/upload/v1684982590/Jack_Stauber_Buttercup_ndqobo.mp3'}
     ]
-
+  const seeUser=()=>{
+    console.log(actualuser);
+    
+  }
     return (
-        <div className={`  bg-white ${styles.Container}`} >
+        <div id="CancioneroPage" className={` relative bg-white ${styles.Container}`} >
           
             <main className=" relative bg-violet  h-[7rem] min-[520px]:h-[8rem] sm:h-[10rem] w-full flex justify-center items-center ">
                 <Image src={image1} alt="blueimage" className={`absolute top-0 h-full w-auto left-0 hidden min-[475px]:block lg:left-[9%] xl:left-[12%] 2xl:left-[15%]`}/>
@@ -41,21 +47,21 @@ export default function Cancionero(){
                 <h1 className="  z-30 text-[#FFFFFF] text-4xl 2xl:text-8xl   xl:text-6xl lg:text-5xl  sm:text-5xl">Cancionero</h1>
             </main>
           
-            <div className={`${login?`flex  ${styles.SecondContainer} flex-col items-center justify-between sm:items-stretch md:flex-row   md:h-[60rem]`:
+            <div className={`${isAuth?`flex  ${styles.SecondContainer} flex-col items-center justify-between sm:items-stretch md:flex-row   md:h-[60rem]`:
             `${styles.SecondContainer} relative
                  min-[420px]:h-[34rem] sm:landscape:h-[40rem] sm:h-[33rem] md:h-[36rem] lg:h-[34rem] 
              xl:h-[35rem] 2xl:h-[45rem] min-[2000px]:h-[50rem] ` }`}>
 
-                { login&&
+                { isAuth&&
               <section className=" w-full h-[20rem] sm:h-[30rem] md:w-6/12  md:h-auto">
                   <MusicsPlayers Musics={fakeaudios}/>
               </section>}
 
-             <section className={`${login?` flex flex-col w-full md:w-6/12 `:
+             <section className={`${isAuth?` flex flex-col w-full md:w-6/12 `:
              `  h-full flex items-center relative p-1 `}`}>
            
              
-                 <article className={`${login?` text-center  h-3/6 flex justify-center items-center`:
+                 <article className={`${isAuth?` text-center  h-3/6 flex justify-center items-center`:
                  `  flex items-center justify-center
                       h-auto
                      md:w-[55%] md:ml-2
@@ -63,7 +69,7 @@ export default function Cancionero(){
                      xl:w-[56%]
                      2xl:ml-2 2xl:w-7/12 ` }`}>
 
-                   <p className={`${login?`flex  
+                   <p className={`${isAuth?`flex  
                      text-base p-0
                      min-[300px]:text-lg min-[300px]:p-5
                      sm:text-xl sm:p-8
@@ -90,7 +96,7 @@ export default function Cancionero(){
                    </p>
                  </article>
 
-                 <Image src={image3} alt="bg-cj" className={`${login?` hidden w-8/12 h-auto min-w-[20rem]
+                 <Image src={image3} alt="bg-cj" className={`${isAuth?` hidden w-8/12 h-auto min-w-[20rem]
                      min-[970px]:h-4/6  min-[970px]:w-auto md:block min-[970px]:max-h-[23rem] lg:max-h-[25rem]  xl:max-h-[28rem] 2xl:max-h-[30rem]  m-auto`:
                  `  absolute right-0 h-3/6 w-auto  hidden
                   
@@ -101,7 +107,7 @@ export default function Cancionero(){
                   2xl:top-[10%] 2xl:right-[5%]  2xl:h-[80%] 2xl:max-h-[36rem]
                    min-[2000px]:max-h-[48rem] `}`} />
                    
-                   {login&&
+                   {isAuth&&
                  <button className="flex items-center justify-center border-[2px] m-auto bg-[#FFFFFF] border-orangeicons w-5/6 min-w-[15rem] max-w-[18rem]  rounded-lg p-2 ">
                     <span className=" w-8/12">Descargar cancionero</span>
                     <span className=" text-black  w-1/12"> <IoMdDownload className=" text-2xl" /> </span>
@@ -110,8 +116,8 @@ export default function Cancionero(){
               
              </section>
 
-                  {!login&&
-                 <article className={`${login?``:
+                  {!isAuth&&
+                 <article className={`${isAuth?``:
                  `  min-[500px]:absolute bottom-[0%]  w-full flex justify-center  text-white`}`}>
                    <button className="flex items-center justify-center bg-blue w-[20rem] rounded-full text-[#FFFFFF]">
                         <span className=" text-orangeicons w-1/12"><BsArrowLeft/> </span>
@@ -120,7 +126,8 @@ export default function Cancionero(){
                  </article>
                     }
           </div>
-          <button onClick={loginfalso}>Vista de logueado</button>
+          {/* <button onClick={loginfalso}>Vista de logueado</button>
+          <button onClick={seeUser}>ver usuario actual</button> */}
         </div>
     )
 }

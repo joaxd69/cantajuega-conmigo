@@ -2,6 +2,10 @@ import { setUser } from "@/context/userSlice";
 import store from "@/context/store";
 import axios from "./axios";
 import { RegisterBody, UserQueryResponse, loginBody } from "@/types/user.type";
+import { authResponse, authenticated } from "@/types/auth.type";
+import { setAuth } from "@/context/authSlice";
+import { setLoading } from "@/context/loadingSlice";
+
 
 export async function registerUser(body: RegisterBody) : Promise<void> {
   try {
@@ -21,6 +25,8 @@ export async function loginUser(body: loginBody) : Promise<void> {
     if ("error" in petition.data) throw new Error(petition.data.error);
     localStorage.setItem("tkn", petition?.data.token);
     store.dispatch(setUser(petition?.data.user));
+    store.dispatch(setAuth(true))
+    alert(`bienvenido ${petition.data.user.firstName}`)
     return;
   } catch (error) {
     // Handle error here
@@ -31,11 +37,15 @@ export async function loginUser(body: loginBody) : Promise<void> {
 
 export async function authUser(): Promise<void> {
   try {
-    const query : UserQueryResponse = await axios.get('/user/auth');
-    
-    if ('error' in query.data) throw new Error(query.data.error);
-    store.dispatch(setUser(query.data.user));
-    localStorage.setItem('tkn', query.data.token);
+    const query :authResponse = await axios.get('/user/auth');
+  
+    if ('message' in query.data){ 
+      store.dispatch(setAuth(false))
+    }
+    if('user' in query.data&&'token' in query.data){
+       store.dispatch(setUser(query.data.user))
+       store.dispatch(setAuth(true))
+      }
     return;
   } catch (error) {
     localStorage.removeItem('tkn');
@@ -43,9 +53,10 @@ export async function authUser(): Promise<void> {
   }
 }
 
-export async function logoutUser(): Promise<void> {
-  localStorage.removeItem('token');
+export async function logoutUser(): Promise<void> {  
+  localStorage.removeItem('tkn');
   store.dispatch(setUser(null));
+  store.dispatch(setAuth(false))
   return;
 }
 
@@ -59,6 +70,7 @@ export async function updateUser(body: RegisterBody): Promise<void> {
     console.log(error);
   }
 }
+
 
 export async function loginwithGoogle(): Promise<void> {
   try {

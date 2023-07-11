@@ -1,14 +1,20 @@
 import Footer from "@/components/global/Footer";
 import Navbar from "@/components/global/Navbar";
 import store from "@/context/store";
+import { authUser } from "@/functions/user.query";
 import "@/styles/globals.css";
+import { authenticated } from "@/types/auth.type";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 
 function App({ Component, pageProps }: AppProps) {
-  const [isAdmin,setIsAdmin]=useState<boolean>(true)
+  useEffect(()=>{
+    const token=localStorage.getItem('tkn') 
+    token&&    
+    token&&authUser()
+  },[])  
   return (
     <>
       <Head>
@@ -18,11 +24,11 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`bg-light w-full min-h-screen`}>
-      { !isAdmin&&<Navbar />}
         <Provider store={store}>
+          <Navbar />
           <Component {...pageProps} />
         </Provider>
-      {!isAdmin&&<Footer />}
+      <Footer />
       </main>
     </>
   );

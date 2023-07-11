@@ -30,3 +30,13 @@ export async function goToSubscribeMembreship (id: string): Promise<void> {
     console.log(error);
   }
 }
+////to admin
+ export async function deleteSubscribeMembreship(id:string):Promise<void>{
+  try {
+    const deletequery= await axios.delete(`membership/${id}`)
+    console.log(deletequery.data);
+  } catch (error) {
+    console.log(error);
+    
+  }
+ }

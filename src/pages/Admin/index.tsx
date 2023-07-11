@@ -1,60 +1,58 @@
-import { useState } from "react"
-import style from '../../styles/Admin.module.css'
-import Image from "next/image"
-import logo from '../../../public/img/Logo.png'
-import example from '../../../public/img/Star 9.png'
+import { useEffect } from "react"
 import CardsStatistics from "@/components/Admin/CardsStatistics"
+import AdminHeader from "@/components/Admin/AdminHeader"
+import { useAppSelector } from "@/context/store"
+import Link from "next/link"
+import Loader from "@/components/Loader/Loader"
+
+
 export default function Admin(){
-    const [isadmin,setIsAdmin]=useState<boolean>(true)
-    
-    if(!isadmin){
+    const user=useAppSelector(state=>state.userReducer.user)
+    const auth=useAppSelector(state=>state.authReducer.isAuthenticated)
+    const isLoading=useAppSelector(state=>state.userReducer.isLoading)
+   useEffect(()=>{
+     const NavMenu=document.getElementById('NavMenu') as HTMLElement;
+     const footer=document.getElementById('footer') as HTMLElement;
+
+     NavMenu.style.display='none';
+     footer.style.display='none';
+     return()=>{
+        NavMenu.style.display='flex'
+        footer.style.display='flex'
+     }
+   },[]);
+   
+    if(isLoading){
+        
         return(
-            <div className=" min-h-screen flex items-center justify-center"> <h1>Debe ser un usuario administrador para acceder aqui.</h1></div>
+            <div className=" min-h-screen flex items-center justify-center">
+                 <Loader />
+            </div>
         )
     }
-    const fakeapi={
-        New_Members:15,
-        Courses_Completed:32,
-        Contracted_Memberships:40,
-        Users_Canceled:'0'
+    if(user?.email!=='joakig6@gmail.com'){
+      
+        return(
+            <div className=" min-h-screen flex items-center justify-center">
+                 <h1>Debe ser un usuario administrador para acceder aqui.</h1>
+            </div>
+        )
     }
+  
     
     return(
-        <div className=" min-h-screen  w-full absolute h-auto gap-8 min-[400px]:gap-5  sm:gap-20 md:gap-0 sm:h-full flex flex-col items-center">
+        <div className=" min-h-screen  w-full   h-auto gap-8 min-[400px]:gap-5  
+        sm:gap-20 md:gap-8 sm:h-full 
+        flex flex-col  items-center">
+            <Link href={'/'}>
+              <h1>Salir de panel de admin</h1>
+            </Link>
+            <AdminHeader statistics={true} />
 
-            <header className={`${style.Header} w-full h-[35rem]  flex flex-col
-            sm:flex-row sm:justify-center sm:h-[30%] sm:min-h-[20rem] relative `}>
-                  <section className="flex  items-center h-[60%] w-full flex-col justify-end gap-5 sm:gap-0 sm:justify-normal sm:flex-row relative ">
-                    <Image src={logo} alt="logo" className="  sm:absolute  max-h-[5rem] sm:h-[60%] sm:max-h-[5rem] w-auto left-[5%]" />
-                    <article className="text-black h-3/6  sm:h-auto  sm:text-white text-3xl w-full sm:w-11/12 flex  justify-center sm:justify-end  ">
-                        <div className="relative flex flex-col items-center w-full sm:w-auto ">
-                          <Image alt="admin" className="  sm:absolute border-black  border rounded-full w-10 left-[-50%] text-[0rem]" src={example}/>
-                          <h1 className=" h-full sm:h-auto max-sm:bg-white w-full text-center" >Hola kathy</h1>
-                        </div>
-                    </article>
-                    {/* <h1 onClick={()=>setIsAdmin(false)}>Exit</h1> */}
-                  </section>
-                  <section className={`${style.Statistics} 
-                   sm:text-white h-[40%] min-h-[15rem] max-h-max object-contain flex justify-center  items-center relative w-full gap-4 
-                    sm:bottom-[-30%] flex-wrap
-                    sm:flex-wrap sm:absolute 
-                    md:text-base md:flex-nowrap xl:text-xl 2xl:text-2xl 
-                    lg:w-[90%] lg:gap-5 lg:text-lg `} >
-                    <h2 className="  top-0 sm:static md:absolute  w-11/12 sm:m-3 text-2xl">Estadistica semanal</h2>
-                    <CardsStatistics statistic={fakeapi.New_Members} Title="Nuevos miembros" />
-                    <CardsStatistics statistic={fakeapi.Courses_Completed} Title="Cursos completados" />
-                    <CardsStatistics statistic={fakeapi.Contracted_Memberships} Title="Membresias contratadas" />
-                    <CardsStatistics statistic={fakeapi.Users_Canceled} Title="Usuarios cancelados" />
-                    <CardsStatistics hiddenresponsive={true} Title="Membresias" />
-                    <CardsStatistics hiddenresponsive={true} Title="Etapas de desarrollo" />
-                    <CardsStatistics hiddenresponsive={true} Title="Cancionero" />
-                  </section>
-            </header>
-
-            <main className="text-black  min-h-[33rem] sm:min-h-[30rem] gap-4  h-auto flex flex-col justify-evenly sm:flex-row 
+            <main className="text-black min-h-[33rem] sm:min-h-[25rem] gap-4  h-auto flex flex-col justify-evenly sm:flex-row 
             sm:justify-between  items-center w-full  lg:p-0 lg:w-[90%]  ">
 
-              <div className="hidden  sm:flex flex-col items-center max-w-3xl w-[55%] h-4/6 justify-center ">
+              <div className="hidden  sm:flex flex-col items-center max-w-3xl w-[55%] sm:h-[20rem]  justify-center ">
                 <h1 className="w-full">Reportes</h1>
                 <div className="flex items-center border-2 border-gray-200 w-full h-4/6 rounded-md">
 
@@ -87,7 +85,8 @@ export default function Admin(){
 
                 </div>
 
-              <div className="flex flex-col items-center max-w-2xl w-11/12 h-[15rem] sm:w-[40%]  sm:h-4/6  justify-center  ">
+              <div className="flex flex-col items-center max-w-2xl w-11/12 h-[15rem] 
+              sm:w-[40%]  sm:h-[20rem]  justify-center  ">
 
                 <h1>Nuevos miembros</h1>
                 <section className="  bg-[#CFD8DC80] flex flex-col border-2 border-gray-200 w-full h-4/6 rounded-md">

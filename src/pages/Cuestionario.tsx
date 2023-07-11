@@ -356,7 +356,7 @@ export default function Cuestionario (){
                 </section>
              </div>
              <button className="absolute bottom-0 bg-blue right-0 h-12 w-32 rounded-full text-[#FFFFFF] " onClick={preConfirmChanges}>Guardar</button>
-            {seeAlert.alert1&&<Alerts close={closeAlert} Cuestionario={CuestionarioAlerts.Confirm} submitFunction={submitForm}/>}
+            {seeAlert.alert1&&<Alerts close={closeAlert} Cuestionario={CuestionarioAlerts.Confirm} onClick={submitForm}/>}
         </div>
     )
 }
