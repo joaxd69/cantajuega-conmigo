@@ -48,16 +48,6 @@ export default function Membresias() {
         </div>
       </header>
 
-      <main className="flex justify-around">
-        {memberships.map((i,key)=>
-        <article key={key}>
-          <MembershipCard membership={i} image={image[key]} color={color[key]} />
-        </article>
-        )}
-      </main>
-
-
-
       <section>
         <div className="container mx-auto px-4 lg:px-2 ">
           <header className="my-6">
@@ -70,6 +60,18 @@ export default function Membresias() {
         </div>
       </section>
 
+
+      <main className="flex justify-around">
+        {memberships.map((i,key)=>
+        <article key={key}>
+          <MembershipCard membership={i} image={image[key]} color={color[key]} />
+        </article>
+        )}
+      </main>
+
+
+
+    
     </main>
   );
 }
