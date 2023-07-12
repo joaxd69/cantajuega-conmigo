@@ -58,10 +58,6 @@ const Hero = () => {
 
   return (
     <div className={` ${styles.Container} h-[27rem]  min-[380px]:h-[24rem] min-[940px]:h-[20rem] xl:h-[25rem] flex flex-col items-center relative  `}>
-         <button onClick={fakelogin}>login </button>
-         <button onClick={()=>console.log(state.authReducer.isAuthenticated)}>Ver estado globale </button>
-         <button onClick={isAuth}>esta auth? </button>
-         <button onClick={()=>console.log(state.authReducer.isAuthenticated)}>usuario?</button>
          {reloadAnimation&& <article className={`z-20 w-full flex items-center justify-center
                             min-[940px]:h-[8rem] max-[940px]:h-[3rem] `}>
             <h1 className=' text-2xl sm:text-3xl md:text-4xl 2xl:text-7xl xl:text-6xl lg:text-5xl '>{texto.title}</h1>
